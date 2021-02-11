@@ -1,0 +1,24 @@
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+    justify-content:center;
+
+}
+
+.showcase-text{
+    padding-left: 10px;
+    padding-top: 75px;
+}
+
+.showcase-image{
+    padding-left: 13px;
+    padding-top: 88px;
+ 
+}
+
+.showcase-text p a{
+    font-weight: bold;
+    font-size: 15px;
+    color: teal;
+}

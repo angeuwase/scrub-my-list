@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* you can add padding and borders without it adding to the width of an element. so its dimensions are its exact dimensions */
+    text-decoration: none; /*no underlined links*/
+    list-style-type: none; /*no bulleted list elements */
+}
+
+body{
+    font-family: 'Lato', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+img{
+    width: 100% /*keeps images in their container */
+    
+}
+
+main{
+    margin: 10px 0;
+
+}
+
+h1{
+    font-weight: 300;
+
+}
+
+.navbar{
+    background-color: teal;
+    height: 80px;
+}
+
+.navbar ul{
+    display: flex;
+
+}
+
+.navbar a{
+    color: white;
+    padding: 10px;
+    margin: 0 5px;
+    line-height: 80px;
+}
+
+.navbar ul a:hover{
+    border-bottom: 2px solid #fff;
+
+}
+
+
+.navbar .flex{
+    justify-content: space-between;
+}
+
+/*if the screen is really large the container will still be a fixed width and be centered */
+.container{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+/* turns the container div into a flexbox container, making the h1 and navbar flex items. default is for them to be positioned in a row. you can change that using flex-direction*/
+.flex{
+    display: flex;
+    justify-content: center;
+    height: 100%
+
+}
+
+footer{
+    text-align: center;
+    background-color: teal;
+    height: 40px;
+    color: #ffff;
+    line-height: 40px;
+    position: fixed;
+    bottom: 0;
+    width: 100%
+}
+
+.messages{
+    text-align: center;
+    padding-top: 10px;
+}
+
+
+
+/* Error Page Styling
+ ********************/
+ .errorpage-title {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  
+  .errorpage-section {
+    text-align: center;
+    font-size: 1.15rem;
+    margin-bottom: 1em;
+  }
+  
+
+
+
+
+
+
+
+
+/* Mobile */
+@media(max-width: 500px){
+    /* we want to put all the nav items under the logo in a single colum */
+    .navbar{
+        height: 150px;
+    }
+
+    .navbar .flex{
+        flex-direction: column;
+    }
+    
+    .navbar ul{
+        font-size: 8px;
+        padding-bottom: 0px;
+        margin: 20px 2px;
+     /*   line-height: 20px;*/
+    }
+
+    .logo{
+        text-align:center;
+        font-size: 20px;
+        margin: 0 2px;
+        height: 10px;
+        padding-bottom: 10px;
+    }
+    .navbar .flex{
+        justify-content: space-around;
+    }
+
+    /*might need to reduce size of text of the main section for each page */
+
+}
