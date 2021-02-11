@@ -1,6 +1,6 @@
 # Scrub My List Development Process
 
-
+# Stage 1: Prep Work
 ## Step 1: Planning
 -Defined the requirements and wrote the key user stories  
 -Used a mockup tool (cacoo.com) to create a mockup of the web app.    
@@ -160,4 +160,138 @@ if __name__ == "__main__":
 ## Step 3: Code for base.html and CSS Styling
 -Make all templates inherit structure and styling from base.html   
 
-## Step 4: 
+# Stage 2: Test-Driven Development - Home Page
+-Wrote the code for each view function and its associated template using TDD.
+-The unit tests were defined in test_app.py.  
+-Example for the TDD process I followed is shown here:
+
+## Step 1: Wrote the test
+```
+def test_index_page():
+    """
+    GIVEN a flask web application
+    WHEN a GET request for '/' is recieved
+    THEN render the home page. There should be a heading and two paragraph text visible
+
+    """
+
+    #mock data
+    heading = b'Scrub My List'
+    paragraph1 = b'Bulk validate your mailing list and recieve actionable insight regarding its health all in one place!'
+    paragraph2a = b'Register' 
+    paragraph2b = b'for an account now and begin to enjoy never having to worry about poor bounce rates again!'  
+
+    #the test
+
+    with app.test_client() as client:
+        response = client.get('/')
+
+        assert response.status_code == 200
+        assert heading in response.data
+        assert paragraph1 in response.data
+        assert paragraph2a in response.data
+        assert paragraph2b in response.data
+```
+
+## Result: it failed
+-The test failed because the template only contains `<h1>This will be the home page</h1> `
+```
+FAILED tests/test_app.py::test_index_page - assert b'Bulk validate your mailing list and recieve actionable insight regarding its health all in one place!' in b'<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content=...
+============================================================================================================================ 1 failed in 2.07s ============================================================================================================================= 
+
+```
+
+## Step 2: Wrote the code to pass the test
+-Added the required code in the template. The view function was correctly rendering the template so it didnt need to be changed.  
+```
+tests\test_app.py .                                                                                                                                                                                                                                                   [100%] 
+
+============================================================================================================================ 1 passed in 1.44s ============================================================================================================================= 
+```
+
+## Step 3: Refractored the test function so that it uses pytest fixture for test_client
+-Defined the pytest fixture for test_client in conftest.py  
+-Updated the test function so that it uses the test_client fixture  
+(it is going to be repeated a lot, so might as well set it up)
+
+**New test function:**
+```
+#from app import app                #no longer needed as code is using test_client fixture defined in conftest.py
+
+def test_index_page(test_client):
+    """
+    GIVEN a flask web application
+    WHEN a GET request for '/' is recieved
+    THEN render the home page. There should be a heading and two paragraph text visible
+
+    """
+
+    #mock data
+    heading = b'Scrub My List'
+    paragraph1 = b'Bulk validate your mailing list and recieve actionable insight regarding its health all in one place!'
+    paragraph2a = b'Register' 
+    paragraph2b = b'for an account now and begin to enjoy never having to worry about poor bounce rates again!'  
+
+    #the test
+
+    response = test_client.get('/')
+
+    assert response.status_code == 200
+    assert heading in response.data
+    assert paragraph1 in response.data
+    assert paragraph2a in response.data
+    assert paragraph2b in response.data
+
+```
+
+**New conftest.py file:**
+```
+import pytest
+from project import create_app
+
+@pytest.fixture(scope='module')
+def test_client():
+    """
+    Instantiates a flask application configured for testing, and then
+    -creates a test_client for it
+    """
+
+    #Creates an instance of the flask app and configures it for testing
+    test_app = create_app()
+    test_app.config.from_object('config.TestingConfig')
+
+    # Create a test client using the Flask application configured for testing
+    testing_client = test_app.test_client()
+
+    return testing_client
+
+```
+
+**Test still passed:**
+```
+tests\test_app.py .                                                                                                                                                                                                                                                   [100%] 
+
+============================================================================================================================ 1 passed in 0.16s ============================================================================================================================= 
+
+```
+
+# Stage 3: Test-Driven Development- User Model
+-Wrote the code for the view functions related to users and their associated templates using TDD.  
+-Tests covered:  
+*registration
+*password hashing
+*adding new user to database
+*login and logout. 
+
+
+## Step 1: Write the test for registration
+-
+
+
+
+# Stage 4: Test-Driven Development- Emails Model
+-Wrote the code for the view functions related to emails and their associated templates using TDD.  
+-The tests covered:  
+*uploading a new email list  
+*viewing email lists  
+*

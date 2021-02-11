@@ -1,6 +1,7 @@
 {% extends 'base.html'  %}
 
 {% block styling %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
 
 {% block title      %}
@@ -9,6 +10,21 @@
 
 
 {% block main      %}
-<h1>This will be the home page</h1>      
+<div class="container grid">
+    <div class= "showcase-image">
+        <img src= "{{ url_for('static', filename='img/email_medium.jpg') }}" alt="">
+
+    </div>
+    <div class= "showcase-text">
+        <h1>Scrub My List</h1>
+        <br>
+        <p><strong>Bulk validate your mailing list and recieve actionable insight regarding its health all in one place!</strong></p>
+        <br>
+        <p> <a href="{{ url_for('auth.register') }}">Register</a> for an account now and begin to enjoy never having to worry about poor bounce rates again! </p>
+      
+    </div>
+
+
+</div>     
             
 {% endblock      %}  
